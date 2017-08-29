@@ -27,6 +27,7 @@ int main(int argc, char **argv)
     {
         cout<<"\n\n\n<<Control>>\nT : Takeoff\tL : Land\tS : Stop\nW : Forward\tX : Backward\tD : Right\tA : Left\n";
         cout<<"<<Change Speed>>\nO : Speed Up\tP : Speed Down\n";
+        cout<<"<<Current Speed>>\nCurrent Speed : %d"<<speed<<"\n";
         getline(cin, str);
         getkey = str.at(0);
         cout<<"\n\n";
@@ -48,6 +49,8 @@ int main(int argc, char **argv)
         //stop
         case 'S':
         case 's':
+            msg_cmdvel.linear.x = 0;
+            msg_cmdvel.angular.z = 0;
             cmdvel_pub.publish(msg_cmdvel);
             break;
 
@@ -56,7 +59,6 @@ int main(int argc, char **argv)
         case 'w':
             msg_cmdvel.linear.x = speed;
             cmdvel_pub.publish(msg_cmdvel);
-            msg_cmdvel.linear.x = 0;
             break;
 
         //backward
@@ -64,7 +66,6 @@ int main(int argc, char **argv)
         case 'x':
             msg_cmdvel.linear.x = speed;
             cmdvel_pub.publish(msg_cmdvel);
-            msg_cmdvel.linear.x = 0;
             break;
 
         //left
@@ -72,7 +73,6 @@ int main(int argc, char **argv)
         case 'a':
             msg_cmdvel.angular.z = speed;
             cmdvel_pub.publish(msg_cmdvel);
-            msg_cmdvel.angular.z = 0;
             break;
 
         //right
@@ -80,7 +80,6 @@ int main(int argc, char **argv)
         case 'd':
             msg_cmdvel.angular.z = speed;
             cmdvel_pub.publish(msg_cmdvel);
-            msg_cmdvel.angular.z = 0;
             break;
 
         //speed up
